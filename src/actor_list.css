@@ -1,0 +1,33 @@
+/* Set styles for the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+  
+/* Set styles for table headers */
+table th {
+    background-color: #f2f2f2;
+    color: #444;
+    font-weight: bold;
+    font-size: 1.3rem;
+    text-align: center;
+}
+  
+/* Set styles for table rows */
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+table tr:nth-child(odd) {
+    text-align: center;
+}
+  
+table tr:hover {
+    background-color: #ddd;
+}

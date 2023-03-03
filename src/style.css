@@ -1,0 +1,261 @@
+/* Define the color variables */
+:root {
+    --color1: #031926ff;
+    --color2: #468189ff;
+    --color3: #77aca2ff;
+    --color4: #9dbebbff;
+    --color5: #f4e9cdff;
+}
+
+/* Set the background color */
+body {
+    background-color: var(--color2);
+}
+
+/* Define the font styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Set the heading styles */
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 4rem;
+    color: var(--color1);
+}
+
+/* Set the paragraph styles */
+p {
+    list-style: none;
+    padding: 0;
+    margin: 10;
+    display: flex;
+    justify-content: center;
+}
+
+/* Set the list item styles */
+li {
+    margin: 0 1rem;
+}
+
+/* Set the link styles */
+a {
+    color: var(--color1);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+}
+
+/* Set the link hover styles */
+a:hover {
+    border-bottom-color: var(--color5);
+}
+
+/* Set the section styles */
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+    background-color: var(--color4);
+    color: var(--color1);
+    padding: 2rem;
+    border-radius: 4px;
+}
+
+/* Set the image styles */
+.img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Set the button styles */
+.btn {
+    display: inline-block;
+    padding: 1rem;
+    background-color: var(--color2);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Set the button hover styles */
+.btn:hover {
+    background-color: var(--color3);
+}
+
+/* Set styles for the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+/* Set styles for table headers */
+table th {
+    background-color: var(--color3);
+    color: var(--color1);
+    font-weight: bold;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+/* Set animation to the rows */
+table tr {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Set styles for table rows */
+table tr:nth-child(even) {
+    background-color: var(--color3);
+    text-align: center;
+}
+
+table tr:nth-child(odd) {
+    text-align: center;
+}
+
+table tr:nth-child(even):hover {
+    background-color: rgba(55, 90, 84, 0.822);
+}
+
+table tr:nth-child(odd):hover {
+    background-color: rgb(50, 93, 99);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    position: relative;
+    width: 20rem;
+    height: 10rem;
+    margin: 1.5rem;
+    perspective: 1000px;
+    cursor: pointer;
+    border-radius: 20px;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transition: transform 0.3s ease;
+    background-color: var(--color1);
+    color: var(--color4);
+    padding: 2rem;
+    padding-top: auto;
+    box-sizing: border-box;
+}
+
+.card-front {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+}
+
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    background-color: var(--color1);
+    color: var(--color5);
+    padding: 2.5rem;
+    box-sizing: border-box;
+    transform: none;
+    /* Change this line */
+}
+
+.card.is-flipped .card-back {
+    opacity: 1;
+    z-index: 2;
+}
+
+
+/* Actors layout */
+
+form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 202px;
+    margin-top: 5px;
+}
+
+button[type="submit"],
+button {
+    padding: 10px 10px;
+    background-color: var(--color3);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+button[type="submit"]:hover,
+button:hover {
+    background-color: #3e8e41;
+}
+
+form button[type="submit"],
+button {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#home {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+#searchDrop {
+    background-color: var(--color5);
+    border-radius: 4px;
+}
+
+#searchDrop option {
+    color: var(--color1);
+}
