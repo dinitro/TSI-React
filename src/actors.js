@@ -91,11 +91,13 @@ function ActorsList() {
   return (
     <div>
       <div>
+        {/* Search Field */}
         <form onSubmit={handleSearchSubmit}>
           <input type="text" value={query} onChange={handleInputChange} />
           <button type="submit">Search Actors</button>
           <button onClick={handleClearSearch}>Clear Search</button>
         </form>
+        {/* Sorting */}
         <label htmlFor="sort-order">Sort by:</label>
         <select id="sort-order" value={`${sortKey}-${sortOrder}`} onChange={(e) => {
           const [key, order] = e.target.value.split('-');
@@ -107,9 +109,11 @@ function ActorsList() {
           <option value="lastName-desc">Last Name Descending</option>
         </select>
       </div>
+      {/* Return to home button */}
       <button id="home">
         <Link to="/">Home</Link>
       </button>
+      {/* Create actor table */}
       <h2>List of Actors:</h2>
       <table>
         <thead>

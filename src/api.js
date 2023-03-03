@@ -174,3 +174,33 @@ export async function searchFilmsByDescription(query) {
     console.error(error);
   }
 };
+
+
+export async function createActor(firstName, lastName) {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        firstName: firstName,
+        lastName: lastName 
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+
+    if (!Array.isArray(data)) {
+      throw new Error('Response data is not an array');
+    }
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

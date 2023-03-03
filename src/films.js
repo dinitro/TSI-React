@@ -11,7 +11,6 @@ function FilmsList() {
   const [loading, setLoading] = useState(false); // Indicates whether films are being loaded or not
   const [query, setQuery] = useState(''); // Stores search query entered by user
   const [searchType, setSearchType] = useState('title'); // Stores the type of search selected by user
-  const [flippedCardId, setFlippedCardId] = useState(null); // Stores the ID of the flipped card
 
   // Function to fetch films from API
   const fetchFilms = async () => {

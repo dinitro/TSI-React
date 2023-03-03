@@ -1,23 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import ActorsList from './actors';
 import FilmsList from './films';
-import { listActors } from './api';
-
-// function Home() {
-//   return (
-//     <div>
-//       <h1>Welcome to SakilaDB!</h1>
-//       <ul>
-//         <li>
-//           <Link to="/">Home</Link>
-//         </li>
-//         <li>
-//           <Link to="/actors">Actors List</Link>
-//         </li>
-//       </ul>
-//     </div>
-//   );
-// }
 
 function Home() {
   return (
