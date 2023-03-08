@@ -1,5 +1,6 @@
 // Fetch a list of actors from the provided URL
-import { apiUrl } from ".config/constants"
+// import { apiUrl } from ".config/constants"
+export const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 export const listActors = async () => {
   try {
