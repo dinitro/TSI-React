@@ -11,7 +11,7 @@ function ActorsList() {
   const [loading, setLoading] = useState(true); // a boolean indicating if data is currently being fetched
   const [query, setQuery] = useState(''); // a string representing the search query
   const [sortOrder, setSortOrder] = useState('asc'); // a string representing the current sort order
-  const [sortKey, setSortKey] = useState('firstName'); // a string representing the current sort key
+  const [sortKey, setSortKey] = useState('lastName'); // a string representing the current sort key
 
   // Define a function to fetch actors using the search API
   const fetchActors = async () => {

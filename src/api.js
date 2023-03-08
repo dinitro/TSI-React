@@ -1,10 +1,10 @@
 // Fetch a list of actors from the provided URL
-const API_URL = 'http://localhost:8080';
+import { apiUrl } from ".config/constants"
 
 export const listActors = async () => {
   try {
     // Fetch data from the given URL
-    const response = await fetch(`${API_URL}/actors`);
+    const response = await fetch(`${apiUrl}/actors`);
 
     // Check if network response
     if (!response.ok) {
@@ -33,7 +33,7 @@ export async function searchActors(query) {
   try {
     // Fetch data from the given URL
     
-    const response = await fetch(`${API_URL}/actors/search?aq=${query}`);
+    const response = await fetch(`${apiUrl}/actors/search?aq=${query}`);
     
     // Check if network response
     if (!response.ok) {
@@ -62,7 +62,7 @@ export async function searchActors(query) {
 export const listFilms = async () => {
   try {
     // Fetch data from the given URL
-    const response = await fetch(`${API_URL}/films`);
+    const response = await fetch(`${apiUrl}/films`);
 
     // Check if network response
     if (!response.ok) {
@@ -90,8 +90,7 @@ export const listFilms = async () => {
 export async function searchFilms(query) {
   try {
     // Fetch data from the given URL
-    
-    const response = await fetch(`${API_URL}/films/search?fq=${query}`);
+    const response = await fetch(`${apiUrl}/films/search?fq=${query}`);
     
     // Check if network response
     if (!response.ok) {
@@ -121,7 +120,7 @@ export async function searchFilmsByRating(query) {
     // Fetch data from the given URL
     console.log(query)
     // const response = await fetch(`${API_URL}/films/rating?rt=${query}`);
-    const response = await fetch(`${API_URL}/films/rating/${query}`);
+    const response = await fetch(`${apiUrl}/films/rating/${query}`);
     
     // Check if network response
     if (!response.ok) {
@@ -150,7 +149,7 @@ export async function searchFilmsByDescription(query) {
   try {
     // Fetch data from the given URL
     
-    const response = await fetch(`${API_URL}/films/search?desc=${query}`);
+    const response = await fetch(`${apiUrl}/films/search/description?desc=${query}`);
     
     // Check if network response
     if (!response.ok) {
@@ -178,7 +177,7 @@ export async function searchFilmsByDescription(query) {
 
 export async function createActor(firstName, lastName) {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -6,6 +6,7 @@ function Home() {
   return (
     <div>
       <h1>Welcome to SakilaDB!</h1>
+      <h2>Available pages:</h2>
       <p><Link to="/actors">Actors List</Link></p>
       <p><Link to="/films">Movies List</Link></p>
     </div>

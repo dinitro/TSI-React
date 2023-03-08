@@ -87,8 +87,8 @@ function FilmsList() {
 
   return (
     <div>
-      <div class="search-container">
-        <div class="input-container">
+      <div className="search-container">
+        <div className="input-container">
           <input type="text" value={query} onChange={handleInputChange} onKeyDown={handleInputKeyDown} />
           <select id="searchDrop" value={searchType} onChange={handleSearchTypeChange}>
             <option value="title">Title</option>
@@ -96,7 +96,7 @@ function FilmsList() {
             <option value="description">Description</option>
           </select>
         </div>
-        <div class="button-container">
+        <div className="button-container">
           <button className="search" onClick={handleSearchButtonClick}>Search Movies</button>
           <button className="search" onClick={handleClearSearchButtonClick}>Clear Search</button>
         </div>

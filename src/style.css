@@ -27,6 +27,13 @@ h1 {
     color: var(--color1);
 }
 
+h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 4rem;
+    color: var(--color1);
+}
+
 /* Set the paragraph styles */
 p {
     list-style: none;
@@ -203,6 +210,10 @@ table tr:nth-child(odd):hover {
     z-index: 2;
 }
 
+.card:hover {
+    scale: 1.1;
+}
+
 
 /* Actors layout */
 
@@ -251,11 +262,13 @@ button {
     right: 2px;
 }
 
-#searchDrop {
-    background-color: var(--color5);
-    border-radius: 4px;
+#searchDrop,
+#sort-order {
+  background-color: var(--color5);
+  border-radius: 4px;
 }
 
-#searchDrop option {
-    color: var(--color1);
+#searchDrop option:hover,
+#sort-order option:hover {
+  color: var(--color3);
 }
