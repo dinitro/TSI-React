@@ -1,6 +1,6 @@
 // Import necessary dependencies
 import { useState, useEffect } from 'react';
-import { listActors, searchActors } from './api';
+import { listActors, searchActors, createActor } from './api';
 import { Link } from 'react-router-dom';
 
 // Define the ActorsList component
@@ -11,7 +11,10 @@ function ActorsList() {
   const [loading, setLoading] = useState(true); // a boolean indicating if data is currently being fetched
   const [query, setQuery] = useState(''); // a string representing the search query
   const [sortOrder, setSortOrder] = useState('asc'); // a string representing the current sort order
-  const [sortKey, setSortKey] = useState('lastName'); // a string representing the current sort key
+  const [sortKey, setSortKey] = useState('actorId'); // a string representing the current sort key
+  const [newActor, setNewActor] = useState({ firstName: '', lastName: '' }); // an object representing the new actor being created
+  const [showCreateActorForm, setShowCreateActorForm] = useState(false);
+
 
   // Define a function to fetch actors using the search API
   const fetchActors = async () => {
@@ -34,6 +37,22 @@ function ActorsList() {
       console.error(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // 
+  const createNewActor = async (newActor) => {
+    if (!newActor.firstName || !newActor.lastName) {
+      console.log("Error: Both first and last names are required.");
+      return;
+    }
+
+    try {
+      const createdActor = await createActor(newActor);
+      console.log(createdActor); // for testing purposes
+      return createdActor;
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -72,16 +91,33 @@ function ActorsList() {
     if (sortKey === 'firstName') {
       keyA = a.FirstName;
       keyB = b.FirstName;
+    } else if (sortKey === 'actorId') {
+      keyA = String(a.ActorId);
+      keyB = String(b.ActorId);
     } else {
       keyA = a.LastName;
       keyB = b.LastName;
     }
     if (sortOrder === 'asc') {
-      return keyA.localeCompare(keyB);
+      return sortKey === 'actorId' ? keyA - keyB : keyA.localeCompare(keyB);
     } else {
-      return keyB.localeCompare(keyA);
+      return sortKey === 'actorId' ? keyB - keyA : keyB.localeCompare(keyA);
     }
   });
+
+  // Define a function to handle form submission for creating a new actor
+  const handleCreateActorSubmit = (event) => {
+    event.preventDefault();
+    createNewActor(newActor);
+  };
+
+  // Define a function to handle input change for the new actor form
+  const handleNewActorChange = (event) => {
+    setNewActor({
+      ...newActor,
+      [event.target.name]: event.target.value
+    });
+  };
 
   // If the data is still being fetched, display a loading message
   if (loading) {
@@ -96,13 +132,28 @@ function ActorsList() {
           <input type="text" value={query} onChange={handleInputChange} />
           <button type="submit">Search Actors</button>
           <button onClick={handleClearSearch}>Clear Search</button>
+          {/* New Actor Form */}
+          <button id="create" onClick={() => setShowCreateActorForm(!showCreateActorForm)}>Create New Actor</button>
+          {showCreateActorForm && (
+            <form id="actorCreateForm" onSubmit={handleCreateActorSubmit}>
+              <label htmlFor="firstName">First Name:</label>
+              <input type="text" id="firstName" name="firstName" value={newActor.firstName} onChange={handleNewActorChange} />
+              <label htmlFor="lastName">Last Name:</label>
+              <input type="text" id="lastName" name="lastName" value={newActor.lastName} onChange={handleNewActorChange} />
+              {newActor.firstName && newActor.lastName && (
+                <button type="submit">Submit</button>
+              )}
+            </form>
+          )}
         </form>
         {/* Sorting */}
         <label htmlFor="sort-order">Sort by:</label>
         <select id="sort-order" value={`${sortKey}-${sortOrder}`} onChange={(e) => {
           const [key, order] = e.target.value.split('-');
-          handleSortOrderChange({target: {value: order}}, key);
+          handleSortOrderChange({ target: { value: order } }, key);
         }}>
+          <option value="actorId-asc">ID Ascending</option>
+          <option value="actorId-desc">ID Descending</option>
           <option value="firstName-asc">First Name Ascending</option>
           <option value="firstName-desc">First Name Descending</option>
           <option value="lastName-asc">Last Name Ascending</option>
@@ -118,6 +169,7 @@ function ActorsList() {
       <table>
         <thead>
           <tr>
+            <th>id</th>
             <th>First Name</th>
             <th>Last Name</th>
           </tr>
@@ -125,6 +177,7 @@ function ActorsList() {
         <tbody>
           {sortedActors.map((actor) => (
             <tr key={actor.ActorId}>
+              <td>{actor.ActorId}</td>
               <td>{actor.FirstName}</td>
               <td>{actor.LastName}</td>
             </tr>

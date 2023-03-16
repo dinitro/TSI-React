@@ -258,17 +258,46 @@ button {
 
 #home {
     position: absolute;
-    top: 2px;
+    top: 1px;
     right: 2px;
+}
+
+#create {
+    position: relative;
+    top: 1px;
+    /* right: 1rem; */
+}
+
+#actorCreateForm {
+    display: flex;
+    flex-direction: row;
+    /* Change to row */
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 800px;
+    /* Increase the max-width to make room for both fields */
+}
+
+#actorCreateForm label {
+    margin-top: 4px;
+    /* margin-right: 5px; */
+    /* Add margin between the label and input fields */
+}
+
+#actorCreateForm input {
+    margin-top: 4px;
+    /* margin-left: 5px; */
+    /* Add margin between the input fields */
 }
 
 #searchDrop,
 #sort-order {
-  background-color: var(--color5);
-  border-radius: 4px;
+    background-color: var(--color5);
+    border-radius: 4px;
 }
 
 #searchDrop option:hover,
 #sort-order option:hover {
-  color: var(--color3);
+    color: var(--color3);
 }
