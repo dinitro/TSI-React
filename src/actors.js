@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { listActors, searchActors, createActor } from './api';
 import { Link } from 'react-router-dom';
+import Modal from './Modal';
 
 // Define the ActorsList component
 function ActorsList() {
@@ -14,6 +15,7 @@ function ActorsList() {
   const [sortKey, setSortKey] = useState('actorId'); // a string representing the current sort key
   const [newActor, setNewActor] = useState({ firstName: '', lastName: '' }); // an object representing the new actor being created
   const [showCreateActorForm, setShowCreateActorForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
 
   // Define a function to fetch actors using the search API
@@ -49,7 +51,9 @@ function ActorsList() {
 
     try {
       const createdActor = await createActor(newActor);
-      console.log(createdActor); // for testing purposes
+      console.log(createdActor);
+      setShowModal(true); // Show the Modal
+      setTimeout(() => setShowModal(false), 3000); // Hide the Modal after 3 seconds
       return createdActor;
     } catch (error) {
       console.error(error);
@@ -125,67 +129,86 @@ function ActorsList() {
   }
 
   return (
-    <div>
-      <div>
+    <div className="actors-container">
+      <div className="actors-search-bar">
         {/* Search Field */}
         <form onSubmit={handleSearchSubmit}>
           <input type="text" value={query} onChange={handleInputChange} />
           <button type="submit">Search Actors</button>
           <button onClick={handleClearSearch}>Clear Search</button>
-          {/* New Actor Form */}
-          <button id="create" onClick={() => setShowCreateActorForm(!showCreateActorForm)}>Create New Actor</button>
-          {showCreateActorForm && (
-            <form id="actorCreateForm" onSubmit={handleCreateActorSubmit}>
-              <label htmlFor="firstName">First Name:</label>
-              <input type="text" id="firstName" name="firstName" value={newActor.firstName} onChange={handleNewActorChange} />
-              <label htmlFor="lastName">Last Name:</label>
-              <input type="text" id="lastName" name="lastName" value={newActor.lastName} onChange={handleNewActorChange} />
-              {newActor.firstName && newActor.lastName && (
-                <button type="submit">Submit</button>
-              )}
-            </form>
-          )}
         </form>
-        {/* Sorting */}
-        <label htmlFor="sort-order">Sort by:</label>
-        <select id="sort-order" value={`${sortKey}-${sortOrder}`} onChange={(e) => {
-          const [key, order] = e.target.value.split('-');
-          handleSortOrderChange({ target: { value: order } }, key);
-        }}>
-          <option value="actorId-asc">ID Ascending</option>
-          <option value="actorId-desc">ID Descending</option>
-          <option value="firstName-asc">First Name Ascending</option>
-          <option value="firstName-desc">First Name Descending</option>
-          <option value="lastName-asc">Last Name Ascending</option>
-          <option value="lastName-desc">Last Name Descending</option>
-        </select>
+        <button id="home">
+          <Link to="/">Home</Link>
+        </button>
       </div>
-      {/* Return to home button */}
-      <button id="home">
-        <Link to="/">Home</Link>
-      </button>
-      {/* Create actor table */}
-      <h2>List of Actors:</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedActors.map((actor) => (
-            <tr key={actor.ActorId}>
-              <td>{actor.ActorId}</td>
-              <td>{actor.FirstName}</td>
-              <td>{actor.LastName}</td>
+      <div className="actors-sorting">
+      </div>
+      <div className="actors-form">
+        {/* New Actor Form */}
+        <button id="create" onClick={() => setShowCreateActorForm(!showCreateActorForm)}>Create New Actor</button>
+        {showCreateActorForm && (
+          <form id="createForm" onSubmit={handleCreateActorSubmit}>
+            <label htmlFor="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" value={newActor.firstName} onChange={handleNewActorChange} />
+            <label htmlFor="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" value={newActor.lastName} onChange={handleNewActorChange} />
+            {newActor.firstName && newActor.lastName && (
+              <button type="submit">Submit</button>
+            )}
+          </form>
+        )}
+      </div>
+      <div className="actors-table">
+        {/* Create actor table */}
+        <h2>List of Actors:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <span>
+                  ID
+                  <button className="sort-arrow" onClick={() => handleSortOrderChange({ target: { value: sortOrder === 'asc' ? 'desc' : 'asc' } }, 'actorId')}>
+                    {sortKey === 'actorId' && (sortOrder === 'asc' ? '▲' : '▼')}
+                  </button>
+                </span>
+              </th>
+              <th>
+                <span>
+                  First Name
+                  <button className="sort-arrow" onClick={() => handleSortOrderChange({ target: { value: sortOrder === 'asc' ? 'desc' : 'asc' } }, 'firstName')}>
+                    {sortKey === 'firstName' && (sortOrder === 'asc' ? '▲' : '▼')}
+                  </button>
+                </span>
+              </th>
+              <th>
+                <span>
+                  Last Name
+                  <button className="sort-arrow" onClick={() => handleSortOrderChange({ target: { value: sortOrder === 'asc' ? 'desc' : 'asc' } }, 'lastName')}>
+                    {sortKey === 'lastName' && (sortOrder === 'asc' ? '▲' : '▼')}
+                  </button>
+                </span>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {sortedActors.map((actor) => (
+              <tr key={actor.ActorId}>
+                <td>{actor.ActorId}</td>
+                <td>{actor.FirstName}</td>
+                <td>{actor.LastName}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {/* Add the Modal component */}
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
+        <p>Actor successfully added!</p>
+      </Modal>
+    </div >
   );
+
+
 }
 
 export default ActorsList;

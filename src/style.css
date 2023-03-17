@@ -108,6 +108,14 @@ table td {
     padding: 8px;
 }
 
+th span {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--color5);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
 /* Set styles for table headers */
 table th {
     background-color: var(--color3);
@@ -263,12 +271,12 @@ button {
 }
 
 #create {
-    position: relative;
+    position: absolute;
     top: 1px;
-    /* right: 1rem; */
+    left: 29rem;
 }
 
-#actorCreateForm {
+#createForm {
     display: flex;
     flex-direction: row;
     /* Change to row */
@@ -279,25 +287,62 @@ button {
     /* Increase the max-width to make room for both fields */
 }
 
-#actorCreateForm label {
-    margin-top: 4px;
-    /* margin-right: 5px; */
+#createForm label {
+    /* position: absolute; */
+    margin-right: 5px;
     /* Add margin between the label and input fields */
 }
 
-#actorCreateForm input {
-    margin-top: 4px;
-    /* margin-left: 5px; */
+#createForm input {
+    /* position: absolute; */
+    margin-left: 5px;
     /* Add margin between the input fields */
 }
 
-#searchDrop,
-#sort-order {
+#searchDrop {
     background-color: var(--color5);
     border-radius: 4px;
 }
 
-#searchDrop option:hover,
-#sort-order option:hover {
+#searchDrop option:hover {
     color: var(--color3);
+}
+
+.sort-arrow {
+    background-color: solid;
+    border: none;
+    cursor: pointer;
+    outline: black;
+    position: relative;
+    /* top: 50%; */
+    left: 5px;
+    /* right: 0px; */
+    /* transform: translateY(-50%); */
+    font-size: 10px;
+}
+
+.sort-arrow:hover {
+    color: #007bff;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 80%;
+    width: 400px;
+    text-align: center;
 }

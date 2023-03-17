@@ -1,6 +1,6 @@
 // Fetch a list of actors from the provided URL
 // import { apiUrl } from ".config/constants"
-const apiUrl1 = process.env.REACT_APP_API_URL || "http://localhost:8080";
+const apiUrl1 = "http://localhost:8080";
 const apiUrl2 = "http://localhost:8081"
 
 // Actors
@@ -35,9 +35,9 @@ export const listActors = async () => {
 export async function searchActors(query) {
   try {
     // Fetch data from the given URL.
-    
+
     const response = await fetch(`${apiUrl1}/actors/search?aq=${query}`);
-    
+
     // Check if network response.
     if (!response.ok) {
       // Error if the response fails.
@@ -72,7 +72,7 @@ export async function createActor(actor) {
   const data = await response.json();
   return data;
 }
-    
+
 // Films.
 export const listFilms = async () => {
   try {
@@ -106,7 +106,7 @@ export async function searchFilms(query) {
   try {
     // Fetch data from the given URL.
     const response = await fetch(`${apiUrl1}/films/search?fq=${query}`);
-    
+
     // Check if network response.
     if (!response.ok) {
       // Error if the response fails.
@@ -136,7 +136,7 @@ export async function searchFilmsByRating(query) {
     console.log(query)
     // const response = await fetch(`${API_URL}/films/rating?rt=${query}`);
     const response = await fetch(`${apiUrl1}/films/rating/${query}`);
-    
+
     // Check if network response.
     if (!response.ok) {
       // Error if the response fails.
@@ -163,9 +163,9 @@ export async function searchFilmsByRating(query) {
 export async function searchFilmsByDescription(query) {
   try {
     // Fetch data from the given URL.
-    
+
     const response = await fetch(`${apiUrl1}/films/search/description?desc=${query}`);
-    
+
     // Check if network response.
     if (!response.ok) {
       // Error if the response fails.
@@ -193,7 +193,7 @@ export async function searchFilmsByDescription(query) {
 export const listCountries = async () => {
   try {
     // Fetch data from the given URL
-    const response = await fetch(`${apiUrl2}/countries`);
+    const response = await fetch(`${apiUrl2}/countries/`);
 
     // Check if network response.
     if (!response.ok) {
@@ -221,9 +221,9 @@ export const listCountries = async () => {
 export async function searchCountries(query) {
   try {
     // Fetch data from the given URL.
-    
+
     const response = await fetch(`${apiUrl2}/countries/search?q=${query}`);
-    
+
     // Check if network response.
     if (!response.ok) {
       // Error if the response fails.
@@ -259,32 +259,43 @@ export async function createCountry(country) {
   return data;
 }
 
+export async function deleteCountry(id) {
+  try {
+    const response = await fetch(`${apiUrl2}/countries/${id}`, {
+      method: 'DELETE',
+    });
 
-// export async function createActor(firstName, lastName) {
-//   try {
-//     const response = await fetch(apiUrl, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({ 
-//         firstName: firstName,
-//         lastName: lastName 
-//       })
-//     });
+    // Check if network response.
+    if (!response.ok) {
+      // Error if the response fails.
+      throw new Error('Network response was not ok');
+    }
 
-//     if (!response.ok) {
-//       throw new Error('Network response was not ok');
-//     }
+    // Return a message indicating success.
+    return { message: 'Country deleted successfully' };
+  } catch (error) {
+    // Log errors to console.
+    console.error(error);
+  }
+}
 
-//     const data = await response.json();
+export async function updateCountry(id, country) {
+  try {
+    const response = await fetch(`${apiUrl2}/countries/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(country),
+    });
 
-//     if (!Array.isArray(data)) {
-//       throw new Error('Response data is not an array');
-//     }
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
 
-//     return data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
